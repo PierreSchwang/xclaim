@@ -21,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public abstract class Platform {
 
@@ -44,7 +45,9 @@ public abstract class Platform {
             } else {
                 instance = new codes.wasabi.xclaim.platform.spigot_1_17.SpigotPlatform_1_17();
             }
-        } else if (PaperLib.isVersion(16)) {
+        } else if (PaperLib.isVersion(19)) {
+            instance = new codes.wasabi.xclaim.platform.spigot_1_19.SpigotPlatform_1_19();
+        }else if (PaperLib.isVersion(16)) {
             instance = new codes.wasabi.xclaim.platform.spigot_1_16.SpigotPlatform_1_16();
         } else if (PaperLib.isVersion(15)) {
             instance = new codes.wasabi.xclaim.platform.spigot_1_15.SpigotPlatform_1_15();
@@ -198,7 +201,10 @@ public abstract class Platform {
 
     public abstract Material getFireChargeMaterial();
 
+    @Deprecated
     public abstract void setOwningPlayer(SkullMeta sm, OfflinePlayer player);
+
+    public abstract void setOwningPlayer(SkullMeta skullMeta, UUID uuid, String name);
 
     public abstract boolean bukkitTaskCancelled(BukkitTask task);
 

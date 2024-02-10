@@ -7,10 +7,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
 public class PaperPlatform extends SpigotPlatform_1_17 {
+
+    @Override
+    public void setOwningPlayer(SkullMeta skullMeta, UUID uuid, String name) {
+        skullMeta.setPlayerProfile(Bukkit.createProfile(uuid, name));
+    }
 
     @Override
     protected PlatformChatListener newChatListener() {

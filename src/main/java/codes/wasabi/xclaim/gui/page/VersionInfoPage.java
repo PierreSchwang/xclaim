@@ -14,15 +14,21 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.profile.PlayerProfile;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.UUID;
 
 public class VersionInfoPage extends Page {
 
+    private static final UUID OWNER_UUID = UUID.fromString("938c730b-df4e-41eb-98fe-786835347c39");
+    private static final String OWNER_NAME = "Wasabi_Thumbs";
+
     private static final ItemStack VERSION_STACK;
+    private static final ItemStack AUTHOR_STACK;
 
     static {
         ItemStack ver = new ItemStack(Material.BOOK, 1);
@@ -42,20 +48,16 @@ public class VersionInfoPage extends Page {
         VERSION_STACK = ver;
     }
 
-    private static final ItemStack AUTHOR_STACK;
-
     static {
-        UUID authorID = new UUID(-7814744758566370837L, -7422362746895434695L);
-        OfflinePlayer author = Bukkit.getOfflinePlayer(authorID);
         ItemStack skull = Platform.get().preparePlayerSkull(new ItemStack(Platform.get().getPlayerHeadMaterial(), 1));
         ItemMeta meta = skull.getItemMeta();
         if (meta != null) {
             Platform p = Platform.get();
             p.metaDisplayName(meta, Component.text(XClaim.lang.get("gui-vinf-author")).color(NamedTextColor.GOLD));
-            String name = author.getName();
-            if (name == null) name = "Wasabi_Thumbs";
-            p.metaLore(meta, Collections.singletonList(Component.text(name).color(NamedTextColor.LIGHT_PURPLE)));
-            if (meta instanceof SkullMeta) Platform.get().setOwningPlayer((SkullMeta) meta, author);
+            p.metaLore(meta, Collections.singletonList(Component.text(OWNER_NAME).color(NamedTextColor.LIGHT_PURPLE)));
+            if (meta instanceof SkullMeta) {
+                Platform.get().setOwningPlayer((SkullMeta) meta, OWNER_UUID, OWNER_NAME);
+            }
         }
         skull.setItemMeta(meta);
         AUTHOR_STACK = skull;

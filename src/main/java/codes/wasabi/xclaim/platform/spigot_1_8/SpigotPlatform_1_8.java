@@ -17,6 +17,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.profile.PlayerProfile;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Method;
 import java.util.EnumSet;
 import java.util.Locale;
+import java.util.UUID;
 
 public class SpigotPlatform_1_8 extends SpigotPlatform {
 
@@ -239,6 +241,11 @@ public class SpigotPlatform_1_8 extends SpigotPlatform {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setOwningPlayer(SkullMeta skullMeta, UUID uuid, String name) {
+        skullMeta.setOwner(name);
     }
 
     @Override
